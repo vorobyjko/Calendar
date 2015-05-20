@@ -1,0 +1,262 @@
+/* Start of the Styles Reset */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* End of the Styles Reset */
+
+
+body {
+	font-family: Arial;
+}
+
+table, th, td {
+    border: 1px solid #EBEBEB;
+}
+
+
+table {
+	width : 100%;
+	border-collapse: collapse;
+}
+
+
+/* Header Styles start */
+
+.header_outer {
+	width:100%;
+	height: 100px;
+	background-color: #F4F4F4;
+	padding: 0px 80px 0px 80px;
+	box-sizing: border-box;
+	-moz-box-shadow: 2px 2px 3px #cccccc;
+	-webkit-box-shadow: 2px 2px 3px #cccccc;
+	box-shadow: 2px 2px 3px #cccccc;
+}
+
+.header_inner {
+	padding-top: 45px;
+}
+
+#searchWrapper {
+	float: right;
+}
+
+#searchWrapper::before {
+	content: "";
+	background: url(../img/search_icon_16.png) no-repeat;
+	display: block;
+	width: 16px;
+	height: 16px;
+	float: left;
+	padding: 7px 10px;
+	background-position: center;
+}
+
+#search {
+	height: 10px;
+	padding: 8px;
+	min-width: 200px;
+	color: #DADADA;
+	outline : 0px solid transparent;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	behavior: url(ie-css3.htc);
+}
+
+.header_buttons {
+	background-color: #006FCA;
+	color: #ffffff;
+	width: auto;
+	height: 10px;
+	padding: 10px 15px;
+	margin: 0px 10px 0px 0px;
+	float: left;
+	cursor: pointer;
+	line-height: 10px;
+	font-size: 12px;
+	font-weight: 600;
+	text-align: center;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	behavior: url(ie-css3.htc);
+	-moz-box-shadow: 2px 2px 3px #cccccc;
+	-webkit-box-shadow: 2px 2px 3px #cccccc;
+	box-shadow: 2px 2px 3px #cccccc;
+}
+
+.header_buttons:active {
+	background-color: #0058CA;
+}
+
+/* Header Styles end */
+
+
+
+/* Content Styles start */
+
+.content {
+	padding: 0px 80px 0px 80px;
+	box-sizing: border-box;
+}
+
+.todayWrapper {
+	padding-top: 20px;
+	padding-bottom: 15px;
+	float: left;
+}
+
+
+#prevBtn, #nextBtn {
+	width: 15px;
+	height: 15px;
+	border: 1px solid #cccccc;
+	float: left;
+	cursor: pointer;
+	text-align: center;
+	font-size: 15px;
+	display: table-cell;
+	vertical-align: middle;
+	color: #464646;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	behavior: url(ie-css3.htc);
+	-webkit-box-shadow: inset 0px 0px 4px -1px rgba(102,102,102,1);
+	-moz-box-shadow: inset 0px 0px 4px -1px rgba(102,102,102,1);
+	box-shadow: inset 0px 0px 4px -1px rgba(102,102,102,1);
+} 
+
+#year {
+	/*margin-top: 20px;*/
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#today {
+	border: 1px solid #cccccc;
+	width: auto;
+	float: left;
+	margin-left: 15px;
+	padding: 2px 5px 2px 5px;
+	font-size: 12px;
+	color: #666666;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	behavior: url(ie-css3.htc);
+	-webkit-box-shadow: inset 0px 0px 4px -1px rgba(102,102,102,1);
+	-moz-box-shadow: inset 0px 0px 4px -1px rgba(102,102,102,1);
+	box-shadow: inset 0px 0px 4px -1px rgba(102,102,102,1);
+}
+
+#cells {
+	margin-top: 20px;
+}
+
+#calendarCells td {
+	width : 200px;
+	height: 200px;
+}
+
+/* Content Styles end */
+
+
+
+
+/* Callendar Styles start */
+
+
+#calendarWrapper {
+	width : 100%;
+	box-sizing: border-box;
+	float: left;
+	/*margin-top: 10px;*/
+}
+
+#calendarTable td {
+	font-size: 14px;
+	color: #B8B8B8;
+	padding: 7px;
+	box-sizing: border-box;
+}
+
+.todayHighlidth {
+	background-color : #F4F4F4; 
+	color: #666666 !important;
+	font-weight: bold;
+}
+
+.addEventHighlidth {
+	background-color : #98DEFF; 
+}
+
+.addedEvent {
+	background-color: #C1E4FF;
+}
+
+.addedEvent p {
+	color: #666666 !important;
+	font-size: 12px;
+	line-height: 18px;
+	word-wrap: break-word;	
+}
+
+#eventTitle {
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+#eventDescription {
+		
+}
+
+#eventsWrapper {
+	margin-top: 10px;
+}
+
+

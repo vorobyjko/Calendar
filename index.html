@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Calendar</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<div class="header_outer">
+			<div class="header_inner">
+				<div class="header_buttons" id="addEvents">Добавить</div>
+				<div class="header_buttons">Обновить</div>
+					<div id="searchWrapper">
+						<input type="text" id="search" placeholder="Событие, дата или участник">		
+					</div>
+			</div>
+		</div>
+
+	
+		<div class="content">
+			
+			<div class="todayWrapper">
+				<div id="prevBtn">&#9666;</div>
+				<div id="year"></div>
+				<div id="nextBtn">&#x25b8;</div>
+				<div id="today">Сегодня</div>
+			</div>
+			
+			
+			<div id="calendarWrapper">
+				<table id="calendarTable"></table> 
+			</div>
+	
+	</div>
+
+	<script src="js/scripts.js"></script>
+</body>
+
+</html>
