@@ -158,8 +158,8 @@ var calendar = function () {
 
 		//set events
 		if(DATE.getMonth() === currentMonth) {
-			setEvents( { num : 9, eventTitle : "Напиться", eventDescription : "Витя Костин, Петр Михайлов" }, 
-					   { num : 22, eventTitle : "ДР!", eventDescription : "Дима Молодцов" });
+			setEvents( { date : "9.05.2015", eventTitle : "Напиться", eventDescription : "Витя Костин, Петр Михайлов" }, 
+					   { date : "22.05.2015", eventTitle : "ДР!", eventDescription : "Дима Молодцов" });
 		}
 	};
 
@@ -184,9 +184,11 @@ var calendar = function () {
 
 	function setEvents(){
 		var eventTemplate = "<p id='eventTitle'></p><p id='eventDescription'></p>";
-
+		
 		for (var i = 0; i < arguments.length; i++) {
-			var td = document.getElementById(arguments[i].num);
+			var num = parseInt(arguments[i].date.split(".")[0]) + 4;
+			
+			var td = document.getElementById(num);
 			 	td.className += "addedEvent";
 			 	td.innerHTML += eventTemplate;
 			 	td.querySelector("#eventTitle").innerHTML += arguments[i].eventTitle;
@@ -194,9 +196,6 @@ var calendar = function () {
 		}	
 	}
 
-	renderCal();
-	initBtnListeners();
-	
 	window.addEventListener('resize', function(event){
   		var td = tableEl.querySelectorAll("td");
   		for (var i = 0; i < td.length; i++) {
@@ -205,6 +204,8 @@ var calendar = function () {
   		};
   	});
 
+	renderCal();
+	initBtnListeners();
 };
 
 
@@ -215,4 +216,3 @@ initAll(FUNCTIONS_COLLECTION);
 
 
 })();
-
