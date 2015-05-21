@@ -196,16 +196,23 @@ var calendar = function () {
 		}	
 	}
 
-	window.addEventListener('resize', function(event){
-  		var td = tableEl.querySelectorAll("td");
-  		for (var i = 0; i < td.length; i++) {
-  			td[i].width = parseInt(calendarWrapperEl.clientWidth / DAYS.length);
-			td[i].height = td[i].width;
-  		};
-  	});
+	
+	function onResize() {
+		var handler = function(event){
+	  		var td = tableEl.querySelectorAll("td");
+	  		for (var i = 0; i < td.length; i++) {
+	  			td[i].width = parseInt(calendarWrapperEl.clientWidth / DAYS.length);
+				td[i].height = td[i].width;
+	  		};
+	  	};
+		
+		window.addEventListener ? window.addEventListener('resize', handler) : window.onresize = handler;	
+	}
+	
 
 	renderCal();
 	initBtnListeners();
+	onResize();
 };
 
 
