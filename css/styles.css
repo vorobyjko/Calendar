@@ -85,7 +85,7 @@ table {
 
 #searchWrapper::before {
 	content: "";
-	background: url(../img/search_icon_16.png) no-repeat;
+	background: url(../img/search_icon.png) no-repeat;
 	display: block;
 	width: 16px;
 	height: 16px;
