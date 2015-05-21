@@ -169,7 +169,8 @@ var calendar = function () {
 			nextBtn = document.getElementById("nextBtn");
 		
 		var prevNextBtnHandler = function (e) {
-			var month = (e.target.id === "prevBtn" ? DATE.getMonth() - 1 : DATE.getMonth() + 1);
+			var id = this.id || e.srcElement.id;
+			var month = (id === "prevBtn" ? DATE.getMonth() - 1 : DATE.getMonth() + 1);
 			setNumbers(month, true);
 			document.getElementById("year").innerHTML = MONTHS[DATE.getMonth()] + " " + YEAR;
 		};
