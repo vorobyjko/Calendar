@@ -110,7 +110,6 @@ var calendar = function () {
 				for (var j = 1; j <= DAYS.length; j++) {
 					counter++;
 					td = document.createElement("td");
-					td.setAttribute("id", counter);
 					td.width = parseInt(calendarWrapperEl.clientWidth / DAYS.length);
 					td.height = td.width;
 				    tableEl.lastChild.appendChild(td);
@@ -146,6 +145,8 @@ var calendar = function () {
 			//draw numbers 
 			if (i >= 4) {
 				tdArr[i].innerHTML += daysArr[counter++] || 1;
+				tdArr[i].setAttribute("id",  counter + "-" + month);
+			
 				if ((daysArr[counter] === DATE.getDate())) {
 					tdArr[i+1].className = DATE.getMonth() === currentMonth ? "todayHighlidth" : "";
 				} 
@@ -153,14 +154,14 @@ var calendar = function () {
 			} else {
 				prevDaysArr = prevDaysArr.slice(-tdArr.length + MAX_DAYS);
 				tdArr[i].innerHTML += prevDaysArr[i];
+				tdArr[i].setAttribute("id",  prevDaysArr[i] + "-" + Number(month-1));
 			} 
 		};
 
 		//set events
-		if(DATE.getMonth() === currentMonth) {
-			setEvents( { date : "9.05.2015", eventTitle : "Напиться", eventDescription : "Витя Костин, Петр Михайлов" }, 
-					   { date : "22.05.2015", eventTitle : "ДР!", eventDescription : "Дима Молодцов" });
-		}
+		setEvents( { date : "9.5.2015", eventTitle : "Напиться", eventDescription : "Витя Костин, Петр Михайлов" }, 
+				   { date : "22.5.2015", eventTitle : "ДР!", eventDescription : "Дима Молодцов" });
+		
 	};
 
 
@@ -186,13 +187,17 @@ var calendar = function () {
 		var eventTemplate = "<p id='eventTitle'></p><p id='eventDescription'></p>";
 		
 		for (var i = 0; i < arguments.length; i++) {
-			var num = parseInt(arguments[i].date.split(".")[0]) + 4;
+			var day = arguments[i].date.split(".")[0] ;
+			var month = arguments[i].date.split(".")[1] - 1;
+			var num =  day + "-" + month;
 			
 			var td = document.getElementById(num);
-			 	td.className += "addedEvent";
-			 	td.innerHTML += eventTemplate;
-			 	td.querySelector("#eventTitle").innerHTML += arguments[i].eventTitle;
-			 	td.lastChild.innerHTML += arguments[i].eventDescription;
+			 	if (td !== null) {
+			 		td.className = "addedEvent";
+			 		td.innerHTML += eventTemplate;
+			 		td.querySelector("#eventTitle").innerHTML += arguments[i].eventTitle;
+			 		td.lastChild.innerHTML += arguments[i].eventDescription;
+			 	}
 		}	
 	}
 
