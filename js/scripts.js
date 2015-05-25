@@ -33,7 +33,7 @@ var Calendar = function (config) {
 	/* Params  */
 	
 	var renderTo = config.renderTo || {},
-		events = config.setEvents || null;
+		events = config.setEvents || [];
 
 	
 
@@ -198,7 +198,7 @@ var Calendar = function (config) {
 	
 	/* Public API  */
 
-	this.addEvent = function () {
+	Calendar.prototype.addEvent = function () {
 		if (events && (events instanceof Array)) {
 			for (var i = 0; i < arguments.length; i++) {
 				events.push(arguments[i]);
@@ -208,15 +208,15 @@ var Calendar = function (config) {
 	};
 
 
-	this.getEvents = function () {
+	Calendar.prototype.getEvents = function () {
 		return events;
 	};
 
-	this.getCalendarEl = function () {
+	Calendar.prototype.getCalendarEl = function () {
 		return tableEl;
 	};
 
-	this.destroy = function () {
+	Calendar.prototype.destroy = function () {
 		tableEl.parentNode.removeChild(tableEl);
 		initBtnListeners(true);
 	};
