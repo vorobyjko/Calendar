@@ -68,14 +68,19 @@ var inputSearchValue = function () {
 /* Calendar maker */
 
 var Calendar = function () {
-	this.render = function (element) {
+	var DAYS = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+	
+	/* Private functions */
+ 
+}
+
+Calendar.prototype.render = function (element) {
 		var weeksInMonth = 5,
 			counter = 0,
 			tr,
 			td;
 	
 		
-		var DAYS = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
 		var table = document.createElement("table");
 			element.appendChild(table);
 		
@@ -90,11 +95,12 @@ var Calendar = function () {
 					td.height = td.width;
 				    table.lastChild.appendChild(td);
 				}
-		
 		}
-		//setNumbers(currentMonth);
+		
 	}
-}
+
+
+
 
 
 var calendar = function () {
