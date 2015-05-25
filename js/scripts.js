@@ -1,4 +1,3 @@
-(function(){
  
 var FUNCTIONS_COLLECTION = [];
 
@@ -67,6 +66,36 @@ var inputSearchValue = function () {
 
 
 /* Calendar maker */
+
+var Calendar = function () {
+	this.render = function (element) {
+		var weeksInMonth = 5,
+			counter = 0,
+			tr,
+			td;
+	
+		
+		var DAYS = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+		var table = document.createElement("table");
+			element.appendChild(table);
+		
+		for (var i = 1; i <= weeksInMonth; i++) {
+			tr = document.createElement("tr");
+			table.appendChild(tr);
+				
+				for (var j = 1; j <= DAYS.length; j++) {
+					counter++;
+					td = document.createElement("td");
+					td.width = parseInt(element.clientWidth / DAYS.length);
+					td.height = td.width;
+				    table.lastChild.appendChild(td);
+				}
+		
+		}
+		//setNumbers(currentMonth);
+	}
+}
+
 
 var calendar = function () {
 	var DATE,
@@ -225,6 +254,3 @@ var calendar = function () {
 FUNCTIONS_COLLECTION.push(inputSearchValue, calendar, crossBrowserEventListener);
 
 initAll(FUNCTIONS_COLLECTION);
-
-
-})();
