@@ -1,158 +1,97 @@
- 
-var FUNCTIONS_COLLECTION = [];
-
-/* Initialize all functions
-	@param {Array} funcsArr - global functions array
- */
-
-var initAll = function (funcsArr) {
-	if(funcsArr instanceof Array) {
-		for (var i = funcsArr.length - 1; i >= 0; i--) {
-			if (typeof funcsArr[i] === "function") {
-				funcsArr[i]();
-			};
-		};
-	};
-};
-
-
-/* Function to support cross-browser events listeners */
-
-var crossBrowserEventListener = function () {
-	if (typeof Element.prototype.addEventListener === 'undefined') {
-    	Element.prototype.addEventListener = function (e, callback) {
-      	e = 'on' + e;
-      	return this.attachEvent(e, callback);
-    };
-  }
-}
-
-
-/* Extends Date object
-   return array with length === days in month
-   @param {Number} month 
-*/
-
-Date.prototype.daysInMonth = function(month) {
-	var days = 33 - new Date(this.getFullYear(), month || this.getMonth(), 33).getDate(),
-		daysArr = [];
-
-	for (var i = 1; i <= days; i++) {
-		daysArr.push(i);
-	}
-	return daysArr;
-};
-
-
-/* Toggle search input text	 */
-
-var inputSearchValue = function () {
-	var tempPlaceholderVal,
-		searchElem;
-
-	searchElem = document.getElementById("search");
-	searchElem.addEventListener("focus", function(e) {
-		tempPlaceholderVal = this.placeholder;
-			this.placeholder = "";
-		});
-
-	searchElem.addEventListener("blur", function(e) {
-		if (this.placeholder.length === 0) {
-			this.placeholder = tempPlaceholderVal;
-		}
-	});
-
-};
-
 
 /* Calendar maker */
 
-var Calendar = function () {
-	var DAYS = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+var Calendar = function (config) {
+	
+	/* Constants  */
+	var DATE = new Date(),
+		DAYS = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
+		MONTHS = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+		YEAR = DATE.getFullYear();
+
+	
+
+	/* Extends Date object
+   		return array with length === days in month
+   		@param {Number} month 
+	*/
+
+	if (!Date.hasOwnProperty("daysInMonth")) {
+		Date.prototype.daysInMonth = function(month) {
+			var days = 33 - new Date(this.getFullYear(), month || this.getMonth(), 33).getDate(),
+				daysArr = [];
+
+			for (var i = 1; i <= days; i++) {
+				daysArr.push(i);
+			}
+			return daysArr;
+		};	
+	}
+	
+		
+	
+	/* Params  */
+	
+	var renderTo = config.renderTo || {},
+		events = config.setEvents || null;
+
+	
+
+	/* DOM Elements */
+	
+	var tableEl;
+
+
+	
+	/* Private variables */
+	
+	var currentMonth = DATE.getMonth(),
+		self = this;
+
+	
 	
 	/* Private functions */
- 
-}
 
-Calendar.prototype.render = function (element) {
+	function render() {
 		var weeksInMonth = 5,
 			counter = 0,
+			renderToEl,
 			tr,
 			td;
 	
 		
-		var table = document.createElement("table");
-			element.appendChild(table);
+		var renderToEl = document.getElementById(renderTo);
+
+		if (!renderToEl) {
+			throw new Error("Element with given id " + renderTo + " does not exist!")
+		} else {
+			tableEl = document.createElement("table");
+			tableEl.id = "calendarTable";
+			renderToEl.appendChild(tableEl);
 		
-		for (var i = 1; i <= weeksInMonth; i++) {
-			tr = document.createElement("tr");
-			table.appendChild(tr);
-				
-				for (var j = 1; j <= DAYS.length; j++) {
-					counter++;
-					td = document.createElement("td");
-					td.width = parseInt(element.clientWidth / DAYS.length);
-					td.height = td.width;
-				    table.lastChild.appendChild(td);
-				}
+			for (var i = 1; i <= weeksInMonth; i++) {
+				tr = document.createElement("tr");
+				tableEl.appendChild(tr);
+					
+					for (var j = 1; j <= DAYS.length; j++) {
+						counter++;
+						td = document.createElement("td");
+						td.width = parseInt(renderToEl.clientWidth / DAYS.length);
+						td.height = td.width;
+					    tableEl.lastChild.appendChild(td);
+					}
+			}
 		}
-		
-	}
+
+	};
 
 
-
-
-
-var calendar = function () {
-	var DATE,
-		DAYS,
-		MONTHS,
-		YEAR,
-		today,
-		currentMonth;
-
-
-	/* DOM elements variables */
-	var tableEl,
-		contentEl,
-		calendarWrapperEl,
-		eventTemplate;
-		
-	contentEl = document.querySelector(".content");
-	tableEl = document.getElementById("calendarTable");
-	calendarWrapperEl = document.getElementById("calendarWrapper");
 	
-	DATE = new Date();
-	DAYS = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
-	MONTHS = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-	YEAR = DATE.getFullYear();
-	
-	currentMonth = DATE.getMonth();
-	
-	contentEl.querySelector("#year").innerHTML =  MONTHS[currentMonth]; + " " + YEAR;
+	function drawMonth() {
+		document.getElementById("year").innerHTML =  MONTHS[currentMonth]; + " " + YEAR;
+	};
 
 
-	function renderCal() {
-		var weeksInMonth = 5,
-			counter = 0,
-			tr,
-			td;
-	
-		for (var i = 1; i <= weeksInMonth; i++) {
-			tr = document.createElement("tr");
-			tableEl.appendChild(tr);
-				
-				for (var j = 1; j <= DAYS.length; j++) {
-					counter++;
-					td = document.createElement("td");
-					td.width = parseInt(calendarWrapperEl.clientWidth / DAYS.length);
-					td.height = td.width;
-				    tableEl.lastChild.appendChild(td);
-				}
-		
-		}
-		setNumbers(currentMonth);
-	}
 
 	function setNumbers(month, refresh) {
 		/* Constants */
@@ -192,15 +131,12 @@ var calendar = function () {
 				tdArr[i].setAttribute("id",  prevDaysArr[i] + "-" + Number(month-1));
 			} 
 		};
-
-		//set events
-		setEvents( { date : "9.5.2015", eventTitle : "Напиться", eventDescription : "Витя Костин, Петр Михайлов" }, 
-				   { date : "22.5.2015", eventTitle : "ДР!", eventDescription : "Дима Молодцов" });
-		
+		setEvents(events);
 	};
 
 
-	function initBtnListeners() {
+
+	function initBtnListeners(destroy) {
 		var prevBtn = document.getElementById("prevBtn"),
 			nextBtn = document.getElementById("nextBtn");
 		
@@ -211,52 +147,87 @@ var calendar = function () {
 			document.getElementById("year").innerHTML = MONTHS[DATE.getMonth()] + " " + YEAR;
 		};
 		
-		prevBtn.addEventListener("click", prevNextBtnHandler);
+		if (destroy) {
+			prevBtn.removeEventListener("click", prevNextBtnHandler);
+			nextBtn.removeEventListener("click", prevNextBtnHandler);
+		} else {
+			prevBtn.addEventListener("click", prevNextBtnHandler);
+			nextBtn.addEventListener("click", prevNextBtnHandler);
+		}
+	};
 
-		nextBtn.addEventListener("click", prevNextBtnHandler);
-
-	}
 
 
-	function setEvents(){
+	function setEvents(events){
 		var eventTemplate = "<p id='eventTitle'></p><p id='eventDescription'></p>";
 		
-		for (var i = 0; i < arguments.length; i++) {
-			var day = arguments[i].date.split(".")[0] ;
-			var month = arguments[i].date.split(".")[1] - 1;
+		if(!(events instanceof Array)) {
+			events[0] = [events[0]];
+		}
+
+		for (var i = 0; i < events.length; i++) {
+			var day = events[i].date.split(".")[0] ;
+			var month = events[i].date.split(".")[1] - 1;
 			var num =  day + "-" + month;
 			
 			var td = document.getElementById(num);
 			 	if (td !== null) {
 			 		td.className = "addedEvent";
 			 		td.innerHTML += eventTemplate;
-			 		td.querySelector("#eventTitle").innerHTML += arguments[i].eventTitle;
-			 		td.lastChild.innerHTML += arguments[i].eventDescription;
+			 		td.querySelector("#eventTitle").innerHTML += events[i].eventTitle;
+			 		td.lastChild.innerHTML += events[i].eventDescription;
 			 	}
 		}	
-	}
+	};
 
-	
+
+
 	function onResize() {
 		var handler = function(event){
 	  		var td = tableEl.querySelectorAll("td");
 	  		for (var i = 0; i < td.length; i++) {
-	  			td[i].width = parseInt(calendarWrapperEl.clientWidth / DAYS.length);
+	  			td[i].width = parseInt(self.getCalendarEl().parentNode.clientWidth / DAYS.length);
 				td[i].height = td[i].width;
 	  		};
 	  	};
 		
 		window.addEventListener ? window.addEventListener('resize', handler) : window.onresize = handler;	
-	}
-	
+	};
 
-	renderCal();
+
+	
+	/* Public API  */
+
+	this.addEvent = function () {
+		if (events && (events instanceof Array)) {
+			for (var i = 0; i < arguments.length; i++) {
+				events.push(arguments[i]);
+			};
+		}
+		setEvents(events);
+	};
+
+
+	this.getEvents = function () {
+		return events;
+	};
+
+	this.getCalendarEl = function () {
+		return tableEl;
+	};
+
+	this.destroy = function () {
+		tableEl.parentNode.removeChild(tableEl);
+		initBtnListeners(true);
+	};
+
+
+
+	/* Init All */
+
+	render();
+	drawMonth();
+	setNumbers(DATE.getMonth());
 	initBtnListeners();
 	onResize();
 };
-
-
-
-FUNCTIONS_COLLECTION.push(inputSearchValue, calendar, crossBrowserEventListener);
-
-initAll(FUNCTIONS_COLLECTION);
