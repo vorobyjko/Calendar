@@ -88,7 +88,13 @@ var Calendar = function (config) {
 
 	
 	function drawMonth() {
-		document.getElementById("year").innerHTML =  MONTHS[currentMonth]; + " " + YEAR;
+		var template =  "<div class='todayWrapper'>" +
+						"<div id='prevBtn'>&#9666;</div>" +
+						"<div id='year'>" + MONTHS[currentMonth] + " " + YEAR + "</div>" +
+						"<div id='nextBtn'>&#x25b8;</div>" +
+						"<div id='today'>Сегодня</div></div>"
+
+		document.getElementById(renderTo).innerHTML += template;
 	};
 
 
@@ -225,8 +231,8 @@ var Calendar = function (config) {
 
 	/* Init All */
 
-	render();
 	drawMonth();
+	render();
 	setNumbers(DATE.getMonth());
 	initBtnListeners();
 	onResize();
